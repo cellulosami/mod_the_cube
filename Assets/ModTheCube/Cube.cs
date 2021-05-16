@@ -6,11 +6,17 @@ public class Cube : MonoBehaviour
 {
     public MeshRenderer Renderer;
 
+    //orbit variables 
     public float orbitSpeed;
     public float orbitWidth;
     public float orbitHeight;
     private float orbitTime;
     
+    //scale variables
+    public float scaleSpeed;
+    public float scaleMagnitude;
+    private float scaleTime;
+
     void Start()
     {
         //setup orbit variables
@@ -29,6 +35,7 @@ public class Cube : MonoBehaviour
     
     void Update()
     {
+        scaleTime += Time.deltaTime * scaleSpeed;
         orbitTime += Time.deltaTime * orbitSpeed;
 
         transform.Rotate(10.0f * Time.deltaTime, 0.0f, 0.0f);
@@ -37,5 +44,9 @@ public class Cube : MonoBehaviour
         float x = Mathf.Cos(orbitTime) * orbitWidth;
         float y = Mathf.Sin(orbitTime) * orbitHeight;
         transform.position = new Vector3(x, y, transform.position.z);
+
+        //scale cube
+        float currentScale = (Mathf.Sin(scaleTime)) + 1;
+        transform.localScale = new Vector3(currentScale, currentScale, currentScale);
     }
 }
